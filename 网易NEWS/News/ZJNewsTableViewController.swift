@@ -70,7 +70,11 @@ class ZJNewsTableViewController: UITableViewController {
         if news != nil {
             cell.titleLabel.text = news!.title!
             cell.desLabel.text = news!.digest!
-            cell.countLabel.text = "\(news!.replyCount!)"
+            if news?.replyCount == nil {
+                cell.countLabel.text = "0"
+            }else{
+                cell.countLabel.text = "\(news!.replyCount!)"
+            }
             cell.imgView.image = UIImage(named: "contentview_image_default")
             var url = NSURL(string: news!.imgsrc! as String)
             
