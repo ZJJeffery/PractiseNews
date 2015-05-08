@@ -71,6 +71,7 @@ class ZJNewsTableViewController: UITableViewController {
             cell.titleLabel.text = news!.title!
             cell.desLabel.text = news!.digest!
             cell.countLabel.text = "\(news!.replyCount!)"
+            cell.imgView.image = UIImage(named: "contentview_image_default")
             var url = NSURL(string: news!.imgsrc! as String)
             
             // 从缓存获取图片
@@ -84,7 +85,7 @@ class ZJNewsTableViewController: UITableViewController {
                 var img = UIImage(data: dataImg!)
                 self.imgCache?.setObject(img!, forKey: url!)
                 cell.imgView.image = img
-//                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+                self.tableView .reloadData()
             })
             
         }
