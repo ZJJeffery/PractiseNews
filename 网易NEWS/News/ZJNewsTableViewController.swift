@@ -26,7 +26,9 @@ class ZJNewsTableViewController: UITableViewController {
     
     var dataList : NSArray?
     
-    var imgCache : NSCache?
+    lazy var imgCache : NSCache = {
+        return NSCache()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +77,7 @@ class ZJNewsTableViewController: UITableViewController {
             }else{
                 cell.countLabel.text = "\(news!.replyCount!)"
             }
-            cell.imgView.image = UIImage(named: "contentview_image_default")
+            
             var url = NSURL(string: news!.imgsrc! as String)
             
             // 从缓存获取图片
@@ -83,12 +85,14 @@ class ZJNewsTableViewController: UITableViewController {
                 cell.imgView.image = self.imgCache?.objectForKey(url!) as? UIImage
                 return cell
             }
+            
+            cell.imgView.image = UIImage(named: "contentview_image_default")
             // 无缓存从网络获取
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 var dataImg = NSData(contentsOfURL: url!)
                 var img = UIImage(data: dataImg!)
                 self.imgCache?.setObject(img!, forKey: url!)
-                cell.imgView.image = img
+//                cell.imgView.image = img
                 self.tableView .reloadData()
             })
             
