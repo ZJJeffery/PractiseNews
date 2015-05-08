@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>412EF022-6796-4271-B6C0-24A1FCFC7A77</string>
+	<string>6EC34F34-94E8-4D39-83FB-B3FF9ED76D13</string>
 	<key>IDESourceControlProjectName</key>
 	<string>网易NEWS</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>https://github.com/ZJJeffery/PractiseNews.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>网易NEWS.xcodeproj</string>
+	<string>网易NEWS.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>73721613E169AEFD7F8D17ECC5FB61DDF425092B</key>
-		<string>../..</string>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/ZJJeffery/PractiseNews.git</string>

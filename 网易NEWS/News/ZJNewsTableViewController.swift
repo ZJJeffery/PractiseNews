@@ -81,8 +81,8 @@ class ZJNewsTableViewController: UITableViewController {
             var url = NSURL(string: news!.imgsrc! as String)
             
             // 从缓存获取图片
-            if self.imgCache?.objectForKey(url!) != nil {
-                cell.imgView.image = self.imgCache?.objectForKey(url!) as? UIImage
+            if self.imgCache.objectForKey(url!) != nil {
+                cell.imgView.image = self.imgCache.objectForKey(url!) as? UIImage
                 return cell
             }
             
@@ -91,7 +91,7 @@ class ZJNewsTableViewController: UITableViewController {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 var dataImg = NSData(contentsOfURL: url!)
                 var img = UIImage(data: dataImg!)
-                self.imgCache?.setObject(img!, forKey: url!)
+                self.imgCache.setObject(img!, forKey: url!)
 //                cell.imgView.image = img
                 self.tableView .reloadData()
             })
