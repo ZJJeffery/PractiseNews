@@ -18,17 +18,17 @@ class ZJChannel: NSObject {
         let dict = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.allZeros, error: nil) as! NSDictionary
         let array = dict[dict.keyEnumerator().nextObject() as! NSString] as! NSArray
         
-        let arrayM = NSMutableArray()
+        var arrayM = [ZJChannel]()
         for var i = 0; i<array.count; i++ {
             let dic = array[i] as! NSDictionary
             let channel = ZJChannel.channleWithDic(dic)
-            arrayM.addObject(channel)
+            arrayM.append(channel)
         }
         
-        // 转换成Array作为排序方法调用
-        let result = arrayM.copy() as! Array<ZJChannel>
+//        // 转换成Array作为排序方法调用
+//        let result = arrayM.copy() as! Array<ZJChannel>
         // 将结果返回为NSArray
-        let finalResult =  result.sorted { ($0.tid < $1.tid)} as NSArray
+        let finalResult = arrayM.sorted { ($0.tid < $1.tid)} as NSArray
         // 返回结果
         return finalResult
         

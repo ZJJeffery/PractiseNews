@@ -18,6 +18,8 @@ class ZJHomeViewController: UIViewController, UICollectionViewDataSource {
     
     @IBOutlet weak var layout: UICollectionViewFlowLayout!
     
+    var currentLabelNumber = 0
+    
     lazy var channels : NSArray? = {
         
         return ZJChannel.channles()
@@ -31,12 +33,14 @@ class ZJHomeViewController: UIViewController, UICollectionViewDataSource {
     }
     
     func layoutFlow(){
+        
         self.layout.itemSize = self.newsView.frame.size
         self.layout.scrollDirection = UICollectionViewScrollDirection.Horizontal
         self.layout.minimumInteritemSpacing = 0
         self.layout.minimumLineSpacing = 0
         self.newsView.pagingEnabled = true
         self.newsView.showsHorizontalScrollIndicator = false
+        
     }
     
     
@@ -59,14 +63,18 @@ class ZJHomeViewController: UIViewController, UICollectionViewDataSource {
             let channel = self.channels![i] as! ZJChannel
             let model = ZJChannelLabel.channelLabelWithTitle(channel.tname!) as ZJChannelLabel
             model.frame = CGRect(x: x, y: 0, width: model.bounds.size.width, height: h)
-            
+            model.tag = i
             x = model.bounds.size.width + x
             
             self.titleView.addSubview(model)
+            
         }
         
         // 设置contentSize
         self.titleView.contentSize = CGSizeMake(x + margin, h)
+        
+        let currentLabel = self.titleView.subviews[self.currentLabelNumber] as! ZJChannelLabel
+        currentLabel.scale = 1.0
     }
     
     override func didReceiveMemoryWarning() {
@@ -109,3 +117,36 @@ class ZJHomeViewController: UIViewController, UICollectionViewDataSource {
     */
 
 }
+
+extension ZJHomeViewController : UICollectionViewDelegate {
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        var currentLabel = self.titleView.subviews[self.currentLabelNumber] as! ZJChannelLabel
+        var nextLabel : ZJChannelLabel?
+        
+        for path in self.newsView.indexPathsForVisibleItems(){
+            if path.item != self.currentLabelNumber {
+                nextLabel = self.titleView.subviews[path.item] as? ZJChannelLabel
+                break
+            }
+        }
+        
+        if nextLabel == nil{
+            return
+        }
+        
+        
+        
+        var scale : CGFloat = abs(scrollView.contentOffset.x / scrollView.frame.size.width - (CGFloat)(self.currentLabelNumber))
+        
+        nextLabel!.scale = scale
+        currentLabel.scale = 1.0 - scale
+        
+        println("\(scale)" + "\(1.0 - scale)")
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        self.currentLabelNumber = (Int)(scrollView.contentOffset.x / scrollView.frame.size.width)
+    }
+}
+

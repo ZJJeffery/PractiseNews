@@ -30,7 +30,6 @@ class ZJNewsCollectionCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         newVc?.view.frame = self.bounds
     }
     

@@ -31,7 +31,7 @@ class ZJNews: NSObject {
         let request = NSURLRequest(URL: url!)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (_, data, error) -> Void in
-        
+            
             let result = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: nil) as! NSDictionary
             let array = result[result.keyEnumerator().nextObject() as! NSString] as! NSArray
         

@@ -14,7 +14,7 @@ class ZJNewsTableViewController: UITableViewController {
    
     // 用于传递不同的数据更新不同的新闻类型
     var urlString : String?{
-        willSet(urlString){
+        didSet{
             if urlString != nil {
                 ZJNews.newsList(urlString!, finished: { (array) -> Void in
                     self.dataList = array
@@ -58,11 +58,8 @@ class ZJNewsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        if(self.dataList == nil)
-        {
-            return 0
-        }
-        return self.dataList!.count
+
+        return self.dataList?.count ?? 0
     }
 
     
