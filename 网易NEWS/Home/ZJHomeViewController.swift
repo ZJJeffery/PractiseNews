@@ -64,7 +64,7 @@ class ZJHomeViewController: UIViewController, UICollectionViewDataSource {
             let model = ZJChannelLabel.channelLabelWithTitle(channel.tname!) as ZJChannelLabel
             model.frame = CGRect(x: x, y: 0, width: model.bounds.size.width, height: h)
             model.tag = i
-            x = model.bounds.size.width + x
+            x = model.bounds.size.width + x + margin
             
             self.titleView.addSubview(model)
             
@@ -89,11 +89,6 @@ class ZJHomeViewController: UIViewController, UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = self.newsView.dequeueReusableCellWithReuseIdentifier("News", forIndexPath: indexPath) as! ZJNewsCollectionCell
-        if indexPath.row % 2 == 1 {
-            cell.backgroundColor = UIColor.redColor()
-        } else {
-            cell.backgroundColor = UIColor.blueColor()
-        }
         let channel = self.channels![indexPath.row] as! ZJChannel
         
         let childArrays = self.childViewControllers as NSArray
@@ -121,6 +116,7 @@ class ZJHomeViewController: UIViewController, UICollectionViewDataSource {
 extension ZJHomeViewController : UICollectionViewDelegate {
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        
         var currentLabel = self.titleView.subviews[self.currentLabelNumber] as! ZJChannelLabel
         var nextLabel : ZJChannelLabel?
         
@@ -141,8 +137,11 @@ extension ZJHomeViewController : UICollectionViewDelegate {
         
         nextLabel!.scale = scale
         currentLabel.scale = 1.0 - scale
-        
-        println("\(scale)" + "\(1.0 - scale)")
+
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        scrollViewDidEndDecelerating(scrollView)
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
