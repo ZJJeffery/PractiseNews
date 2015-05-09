@@ -24,7 +24,13 @@ class ZJChannel: NSObject {
             let channel = ZJChannel.channleWithDic(dic)
             arrayM.addObject(channel)
         }
-        return arrayM.copy() as! NSArray
+        
+        // 转换成Array作为排序方法调用
+        let result = arrayM.copy() as! Array<ZJChannel>
+        // 将结果返回为NSArray
+        let finalResult =  result.sorted { ($0.tid < $1.tid)} as NSArray
+        // 返回结果
+        return finalResult
         
     }
     
