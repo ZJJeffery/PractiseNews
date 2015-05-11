@@ -76,22 +76,9 @@ class ZJNewsTableViewController: UITableViewController {
             }
             
             var url = NSURL(string: news!.imgsrc! as String)
-            
-//            // 从缓存获取图片
-//            if self.imgCache.objectForKey(url!) != nil {
-//                cell.imgView.image = self.imgCache.objectForKey(url!) as? UIImage
-//                return cell
-//            }
+
             let pimg = UIImage(named: "contentview_image_default")
-//            cell.imgView.image = UIImage(named: "contentview_image_default")
-//            // 无缓存从网络获取
-//            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-//                var dataImg = NSData(contentsOfURL: url!)
-//                var img = UIImage(data: dataImg!)
-//                self.imgCache.setObject(img!, forKey: url!)
-////                cell.imgView.image = img
-//                self.tableView .reloadData()
-//            })
+            
             cell.imgView.kf_setImageWithURL(url!, placeholderImage: pimg)
         }
 
